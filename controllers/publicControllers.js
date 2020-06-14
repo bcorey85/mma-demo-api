@@ -133,6 +133,10 @@ const getCard = async (req, res) => {
 			// Prevent user from going to direct route to see current bids
 			if (currentCardCode !== activeCardCode) {
 				showBids = true;
+			} else if (cardHasResults) {
+				showBids = true;
+			} else {
+				showBids = league.showBids;
 			}
 		} else {
 			if (cardHasResults) {
