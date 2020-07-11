@@ -7,7 +7,7 @@ const {
 	login,
 	forgotPassword,
 	resetPassword
-} = require('../controllers/publicControllers');
+} = require('../controllers/public/');
 
 router.get('/pastcards', pastCards);
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const adminAuth = require('../../middleware/adminAuth');
-const fightControllers = require('../../controllers/admin/fightControllers');
+const fightControllers = require('../../controllers/admin/fight');
 
 //Get player list
 router.get(

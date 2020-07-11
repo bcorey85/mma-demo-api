@@ -1,5 +1,5 @@
 const express = require('express');
-const cardControllers = require('../../controllers/admin/cardControllers');
+const cardControllers = require('../../controllers/admin/card');
 const adminAuth = require('../../middleware/adminAuth');
 const router = new express.Router();
 

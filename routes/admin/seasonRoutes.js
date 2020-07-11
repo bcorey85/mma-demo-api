@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const adminAuth = require('../../middleware/adminAuth');
-const seasonControllers = require('../../controllers/admin/seasonControllers');
+const seasonControllers = require('../../controllers/admin/season');
 
 // Create season
 router.post('/admin/season/', adminAuth, seasonControllers.createSeason);

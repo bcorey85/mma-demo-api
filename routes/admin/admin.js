@@ -3,19 +3,15 @@ const router = new express.Router();
 const adminAuth = require('../../middleware/adminAuth');
 const {
 	adminLogin,
-	adminLogout,
 	getUserList,
 	getUserById,
 	updateUser,
 	deleteUser,
 	sendEmail
-} = require('../../controllers/admin/adminControllers');
+} = require('../../controllers/admin/admin');
 
 //Login admin
 router.post('/admin/login', adminLogin);
-
-//Logout Admin
-router.post('/admin/logout', adminAuth, adminLogout);
 
 // Get list of users
 router.get('/admin/user/', adminAuth, getUserList);
