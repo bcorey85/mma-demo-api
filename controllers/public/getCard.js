@@ -2,6 +2,34 @@ const Season = require('../../models/season');
 const Card = require('../../models/card');
 const League = require('../../models/league');
 
+const calcShowBids = (req, cardHasResults, league) => {
+	let showBids;
+	if (req.params.seasonID && req.params.cardID) {
+		const currentCardCode = Card.cardCode(
+			req.params.seasonID,
+			req.params.cardID
+		);
+		const activeCardCode = Card.cardCode(
+			league.activeCard.season,
+			league.activeCard.card
+		);
+
+		// Prevent user from going to direct route to see current bids
+		if (currentCardCode !== activeCardCode) {
+			showBids = true;
+		} else if (cardHasResults) {
+			showBids = true;
+		}
+	} else {
+		if (cardHasResults) {
+			showBids = true;
+		} else {
+			showBids = league.showBids;
+		}
+	}
+	return showBids;
+};
+
 const getCard = async (req, res) => {
 	try {
 		const league = await League.findOne({});
@@ -86,28 +114,7 @@ const getCard = async (req, res) => {
 		}
 
 		// Handle showing bids on past cards, but check league state before showing on active card
-		let showBids;
-		if (req.params.seasonID && req.params.cardID) {
-			const currentCardCode = Card.cardCode(
-				req.params.seasonID,
-				req.params.cardID
-			);
-			const activeCardCode = Card.cardCode(
-				league.activeCard.season,
-				league.activeCard.card
-			);
-
-			// Prevent user from going to direct route to see current bids
-			if (currentCardCode !== activeCardCode) {
-				showBids = true;
-			}
-		} else {
-			if (cardHasResults) {
-				showBids = true;
-			} else {
-				showBids = league.showBids;
-			}
-		}
+		const showBids = calcShowBids(req, cardHasResults, league);
 
 		// Pagination
 		let pagination = {};
